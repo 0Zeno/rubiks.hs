@@ -1,4 +1,4 @@
-module Scrambler (scramble) where
+module Scrambler (scramble, generateMoves) where
 import Move (Move(..))
 import System.Random
 {-

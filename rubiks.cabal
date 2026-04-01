@@ -21,7 +21,7 @@ library
     exposed-modules:  MyLib, Scrambler, Move, Model
     -- other-modules:
     -- other-extensions:
-    build-depends:    base ^>=4.18.3.0, random
+    build-depends:    base ^>=4.18.3.0, random, QuickCheck
     hs-source-dirs:   src
     default-language: GHC2021
 
@@ -47,4 +47,5 @@ test-suite rubiks-test
     main-is:          Main.hs
     build-depends:
         base ^>=4.18.3.0,
-        rubiks
+        rubiks,
+        QuickCheck
