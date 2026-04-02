@@ -4,14 +4,6 @@ import System.Random
 {-
 code makes sure there are no self cancelling rotations .. eg .. "R" cannot be followed by "R'"
 
-no consecutive opposites rotations .. eg .. "L" cannot be followed by "R" ... "U" cannot be followed by "D".
-
-double rotations are allowed but no more than 3 or it becomes a prime move while rule 3 applies.
-
-once it is scrambled and we have a "state" - we pass it through Kociemba algorithm to solve it ..
-
-once solved - that solution string becomes a SCRAMBLE!
-
 -}
 
 scramble :: Int -> IO ()
@@ -20,13 +12,15 @@ scramble n = do
     print (moves)
 
 generateMoves :: (Maybe Move, Maybe Move) -> Int -> IO [Move]
-generateMoves (prev1, prev2) 0 = return []
+generateMoves (_, _) 0 = return []
 generateMoves (prev1, prev2) n = do
     randomMove <- getRandomMove
 
+    -- no more than 3 identical moves or it becomes a prime.
     if prev1 == Just randomMove && prev2 == Just randomMove
         then generateMoves (prev1, prev2) n
-    else if opposites prev2 ( Just randomMove )
+    -- no consecutive opposites rotations eg. "L" cannot be followed by "R". 
+    else if opposites prev2 (Just randomMove)
         then generateMoves (prev1, prev2) n 
     else do
         rest <- generateMoves (prev2, Just randomMove) (n-1)

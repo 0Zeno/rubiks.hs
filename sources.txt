@@ -1,1 +1,2 @@
 https://www.reddit.com/r/Cubers/comments/u4txsw/scramble_generator_algorithm/
+https://hackage.haskell.org/package/QuickCheck
