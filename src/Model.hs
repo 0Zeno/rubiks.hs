@@ -9,16 +9,20 @@ data Cube =
         left :: Face, 
         right :: Face
     }
-    deriving (Show, Eq)
+    deriving (Eq) 
+
 
 data Face = 
     Face Row Row Row
-    deriving (Show, Eq)
+    deriving (Eq)
+
+
 
 data Row = 
-    Row Color Color  Color
-    deriving (Show, Eq)
+    Row Color Color Color
+    deriving (Eq)
+
 
 data Color =
     Red | Blue | Yellow | White | Green | Orange
-    deriving (Show, Eq)
+    deriving (Eq)
