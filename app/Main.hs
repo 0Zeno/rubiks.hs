@@ -11,18 +11,18 @@ main = do
   case args of
     ("scramble":numberOfMoves:_) -> Scrambler.scramble ( read numberOfMoves :: Int )
     ("scramble":_) -> Scrambler.scramble 25
-    ("show":x:_) -> command x 
+    ("show":x:_) -> showCubeFlags x 
     ("show":_) -> print solvedCube
-    _ -> putStrLn "Cound not find command"
+    _ -> putStrLn "Cound not find showCubeFlags"
 
 
-command :: String -> IO ()
-command "-e" = print solvedEdges
-command "-c" = print solvedCorners
-command "-u" = print (upFace solvedCube)
-command "-d" = print (downFace solvedCube)
-command "-f" = print (frontFace solvedCube)
-command "-b" = print (backFace solvedCube)
-command "-r" = print (rightFace solvedCube)
-command "-l" = print (leftFace solvedCube)
-command x = putStrLn ("Could not find flag " ++ x) 
+showCubeFlags :: String -> IO ()
+showCubeFlags "-e" = print solvedEdges
+showCubeFlags "-c" = print solvedCorners
+showCubeFlags "-u" = print (upFace solvedCube)
+showCubeFlags "-d" = print (downFace solvedCube)
+showCubeFlags "-f" = print (frontFace solvedCube)
+showCubeFlags "-b" = print (backFace solvedCube)
+showCubeFlags "-r" = print (rightFace solvedCube)
+showCubeFlags "-l" = print (leftFace solvedCube)
+showCubeFlags x = putStrLn ("Could not find flag " ++ x) 

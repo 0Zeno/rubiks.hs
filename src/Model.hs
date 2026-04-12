@@ -2,18 +2,12 @@ module Model where
 
 data Cube = 
     Cube Corners Edges
-    deriving (Show)
 
-data Color = 
-    Red | Yellow | Green | Blue | White | Orange    
-instance Show Color where
-    show :: Color -> String
-    show Red = "R"
-    show Blue = "B"
-    show Yellow = "Y"
-    show White = "W"
-    show Green = "G"
-    show Orange = "O"
+
+
+data Color =
+    Red | Yellow | Green | Blue | White | Orange
+    deriving (Eq)
 
 data Corners = Corners
       { urf :: CornerCubie
@@ -27,12 +21,9 @@ data Corners = Corners
       }
       deriving (Show)          
 
-data CornerCubie = 
-    CornerCubie CornerPosition CornerOrientaion 
-
-instance Show CornerCubie where
-    show :: CornerCubie -> String
-    show (CornerCubie pos ori) = show pos ++ " " ++ show ori
+data CornerCubie =
+    CornerCubie CornerPosition CornerOrientaion
+    deriving (Show)
 
 data CornerPosition =
     URF | ULF | URB | ULB | DRF | DLF | DRB | DLB
@@ -58,12 +49,9 @@ data Edges = Edges
     }
     deriving (Show)                                                               
  
-data EdgeCubie = 
+data EdgeCubie =
     EdgeCubie EdgePosition EdgeOrientation
-
-instance Show EdgeCubie where
-    show :: EdgeCubie -> String
-    show  (EdgeCubie pos ori) = show pos ++ "  " ++ show ori
+    deriving (Show)
 
 data EdgePosition = 
     UF | UR | UL | UB | DF | DR | DL | DB | RF | LF | RB | LB
