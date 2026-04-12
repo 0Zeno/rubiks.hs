@@ -4,6 +4,7 @@ import System.Environment (getArgs)
 import qualified Scrambler (scramble)
 import Model
 import Display
+import Move
 
 main :: IO ()
 main = do
@@ -12,8 +13,8 @@ main = do
     ("scramble":numberOfMoves:_) -> Scrambler.scramble ( read numberOfMoves :: Int )
     ("scramble":_) -> Scrambler.scramble 25
     ("show":x:_) -> showCubeFlags x 
-    ("show":_) -> print solvedCube
-    _ -> putStrLn "Cound not find showCubeFlags"
+    ("show":_) -> print (applyMoveSpec solvedCube rMove)                                                           
+    _ -> putStrLn "Cound not find command"
 
 
 showCubeFlags :: String -> IO ()

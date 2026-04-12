@@ -37,14 +37,10 @@ instance Show Cube where
         row colors n = unwords (map show (take 3 (drop (n * 3) colors)))
 
 getCornerSticker :: CornerCubie -> Int -> Color
-getCornerSticker (CornerCubie pos ori) face =
+getCornerSticker (CornerCubie pos (CornerOri i j k)) face =
     let (c0, c1, c2) = cornerToColors pos
         colors = [c0, c1, c2]
-        offset = case ori of
-            CNeutral -> 0
-            CCW      -> 1
-            CW       -> 2
-    in colors !! mod (face + offset) 3
+    in colors !! ([i, j, k] !! face)
 
 getEdgeSticker :: EdgeCubie -> Int -> Color
 getEdgeSticker (EdgeCubie pos ori) face =

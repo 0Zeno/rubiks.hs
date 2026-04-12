@@ -3,8 +3,6 @@ module Model where
 data Cube = 
     Cube Corners Edges
 
-
-
 data Color =
     Red | Yellow | Green | Blue | White | Orange
     deriving (Eq)
@@ -30,7 +28,7 @@ data CornerPosition =
     deriving (Show)
 
 data CornerOrientaion =
-    CNeutral | CW | CCW 
+    CornerOri Int Int Int
     deriving (Show)                                                               
 
 data Edges = Edges                                                            
@@ -64,14 +62,14 @@ data EdgeOrientation =
 
 solvedCorners :: Corners
 solvedCorners = Corners
-    { urf = CornerCubie URF CNeutral
-    , ulf = CornerCubie ULF CNeutral
-    , urb = CornerCubie URB CNeutral
-    , ulb = CornerCubie ULB CNeutral
-    , drf = CornerCubie DRF CNeutral
-    , dlf = CornerCubie DLF CNeutral
-    , drb = CornerCubie DRB CNeutral
-    , dlb = CornerCubie DLB CNeutral
+    { urf = CornerCubie URF (CornerOri 0 1 2)
+    , ulf = CornerCubie ULF (CornerOri 0 1 2)
+    , urb = CornerCubie URB (CornerOri 0 1 2)
+    , ulb = CornerCubie ULB (CornerOri 0 1 2)
+    , drf = CornerCubie DRF (CornerOri 0 1 2)
+    , dlf = CornerCubie DLF (CornerOri 0 1 2)
+    , drb = CornerCubie DRB (CornerOri 0 1 2)
+    , dlb = CornerCubie DLB (CornerOri 0 1 2)
     }
 
 solvedEdges :: Edges
