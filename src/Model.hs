@@ -1,4 +1,19 @@
-data Cube = Cube Corners Edges
+module Model where
+
+data Cube = 
+    Cube Corners Edges
+    deriving (Show)
+
+data Color = 
+    Red | Yellow | Green | Blue | White | Orange    
+instance Show Color where
+    show :: Color -> String
+    show Red = "R"
+    show Blue = "B"
+    show Yellow = "Y"
+    show White = "W"
+    show Green = "G"
+    show Orange = "O"
 
 data Corners = Corners
       { urf :: CornerCubie
@@ -9,13 +24,23 @@ data Corners = Corners
       , dlf :: CornerCubie                                                     
       , drb :: CornerCubie                                                      
       , dlb :: CornerCubie
-      }                                                                         
+      }
+      deriving (Show)          
 
-data CornerCubie = CornerCubie CornerPosition CornerOrientaion 
+data CornerCubie = 
+    CornerCubie CornerPosition CornerOrientaion 
 
-data CornerPosition = URF | ULF | URB | ULB | DRF | DLF | DRB | DLB
+instance Show CornerCubie where
+    show :: CornerCubie -> String
+    show (CornerCubie pos ori) = show pos ++ " " ++ show ori
 
-data CornerOrientaion = CNeutral | CW | CCW 
+data CornerPosition =
+    URF | ULF | URB | ULB | DRF | DLF | DRB | DLB
+    deriving (Show)
+
+data CornerOrientaion =
+    CNeutral | CW | CCW 
+    deriving (Show)                                                               
 
 data Edges = Edges                                                            
     { uf :: EdgeCubie
@@ -31,12 +56,22 @@ data Edges = Edges
     , rb :: EdgeCubie
     , lb :: EdgeCubie                                                         
     }
+    deriving (Show)                                                               
+ 
+data EdgeCubie = 
+    EdgeCubie EdgePosition EdgeOrientation
 
-data EdgeCubie = EdgeCubie EdgePosition EdgeOrientation
+instance Show EdgeCubie where
+    show :: EdgeCubie -> String
+    show  (EdgeCubie pos ori) = show pos ++ "  " ++ show ori
 
-data EdgePosition = UF | UR | UL | UB | DF | DR | DL | DB | RF | LF | RB | LB
+data EdgePosition = 
+    UF | UR | UL | UB | DF | DR | DL | DB | RF | LF | RB | LB
+    deriving (Show)                                                               
 
-data EdgeOrientation = ENeutral | EFlipped
+data EdgeOrientation = 
+    ENeutral | EFlipped
+    deriving (Show)                                                               
 
 
 solvedCorners :: Corners
@@ -67,6 +102,30 @@ solvedEdges = Edges
     , lb = EdgeCubie LB ENeutral
     }
 
+-- (upOrDown color, rightOrLeft color, frontOrBack color)      
+cornerToColors :: CornerPosition -> (Color, Color, Color)
+cornerToColors URF = (White, Red, Green)
+cornerToColors ULF = (White, Orange, Green)
+cornerToColors URB = (White, Red, Blue)
+cornerToColors ULB = (White, Orange, Blue)
+cornerToColors DRF = (Yellow, Red, Green)
+cornerToColors DLF = (Yellow, Orange, Green)
+cornerToColors DRB = (Yellow, Red, Blue)
+cornerToColors DLB = (Yellow, Orange, Blue)
+
+edgeToColor :: EdgePosition -> (Color, Color)
+edgeToColor UF = (White, Green)
+edgeToColor UB = (White, Blue)
+edgeToColor UL = (White, Orange)
+edgeToColor UR = (White, Red)
+edgeToColor DF = (Yellow, Green)
+edgeToColor DB = (Yellow, Blue)
+edgeToColor DL = (Yellow, Orange)
+edgeToColor DR = (Yellow, Red)
+edgeToColor RF = (Red, Green)
+edgeToColor LF = (Orange, Green)
+edgeToColor RB = (Red, Blue)
+edgeToColor LB = (Orange, Blue)
 
 solvedCube :: Cube
 solvedCube = Cube solvedCorners solvedEdges
