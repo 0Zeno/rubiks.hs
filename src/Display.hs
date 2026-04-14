@@ -5,12 +5,21 @@ import Model
 
 instance Show Color where
     show :: Color -> String
-    show Red    = "R"
-    show Blue   = "B"
-    show Yellow = "Y"
-    show White  = "W"
-    show Green  = "G"
-    show Orange = "O"
+    show Red    = "\ESC[41m  \ESC[0m"
+    show Blue   = "\ESC[44m  \ESC[0m"
+    show Yellow = "\ESC[48;5;226m  \ESC[0m"
+    show White  = "\ESC[47m  \ESC[0m"
+    show Green  = "\ESC[42m  \ESC[0m"
+    show Orange = "\ESC[48;5;208m  \ESC[0m"
+
+-- instance Show Color where
+--     show :: Color -> String
+--     show Red    = "R" 
+--     show Blue   = "B"
+--     show Yellow = "Y"
+--     show White  = "W"
+--     show Green  = "G"
+--     show Orange = "O"
 
 instance Show Cube where
     show :: Cube -> String
@@ -33,7 +42,7 @@ instance Show Cube where
             , pad ++ row d 2
             ]
       where
-        pad = "      "
+        pad = "         "
         row colors n = unwords (map show (take 3 (drop (n * 3) colors)))
 
 getCornerSticker :: CornerCubie -> Int -> Color
@@ -60,9 +69,9 @@ upFace (Cube corners edges) =
 
 downFace :: Cube -> [Color]
 downFace (Cube corners edges) =
-    [ getCornerSticker (dlb corners) 0, getEdgeSticker (db edges) 0, getCornerSticker (drb corners) 0
+    [ getCornerSticker (dlf corners) 0, getEdgeSticker (df edges) 0, getCornerSticker (drf corners) 0
     , getEdgeSticker   (dl edges)    0, Yellow,                       getEdgeSticker   (dr edges)    0
-    , getCornerSticker (dlf corners) 0, getEdgeSticker (df edges) 0, getCornerSticker (drf corners) 0
+    , getCornerSticker (dlb corners) 0, getEdgeSticker (db edges) 0, getCornerSticker (drb corners) 0
     ]
 
 frontFace :: Cube -> [Color]
