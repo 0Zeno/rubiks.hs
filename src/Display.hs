@@ -2,6 +2,7 @@
 module Display where
 
 import Model
+import Cube
 
 instance Show Color where
     show :: Color -> String
