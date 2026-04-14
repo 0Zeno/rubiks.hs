@@ -1,7 +1,7 @@
 module Main where
 
 import System.Environment (getArgs)
-import qualified Scrambler (scramble)
+import Scrambler 
 import Model
 import Display
 import Move
@@ -11,12 +11,20 @@ main :: IO ()
 main = do
   args <- getArgs
   case args of
-    ("scramble":numberOfMoves:_) -> Scrambler.scramble (read numberOfMoves :: Int)
-    ("scramble":_) -> Scrambler.scramble 25
+    ("scramble":numberOfMoves:_) -> do 
+      moves <- scramble (read numberOfMoves :: Int)
+      print moves
+    ("scramble":_) -> runScramble
     ("show":x:_) -> showCubeFlags x 
-    ("show":_) -> print (applyMoveSpec solvedCube bMove)                                                           
+    ("show":_) -> print (applyMoveSpec solvedCube bMove)                                                   
     _ -> putStrLn "Cound not find command"
 
+
+runScramble :: IO ()
+runScramble = do
+  moves <- scramble 25
+  print moves
+  print (applyMoveList solvedCube moves)
 
 showCubeFlags :: String -> IO ()
 showCubeFlags "-e" = print solvedEdges

@@ -5,6 +5,17 @@ import MoveSpec
 data Move = U | D | F | B | L | R
     deriving (Show, Eq)
 
+moveToMoveSpec :: Move -> MoveSpec
+moveToMoveSpec R = rMove
+moveToMoveSpec L = lMove
+moveToMoveSpec U = uMove
+moveToMoveSpec D = dMove
+moveToMoveSpec F = fMove
+moveToMoveSpec B = bMove
+
+applyMoveList :: Cube -> [Move] -> Cube
+applyMoveList cube moves = foldl (\acc m -> applyMoveSpec acc (moveToMoveSpec m)) cube moves 
+
 applyMoveSpec :: Cube -> MoveSpec -> Cube
 applyMoveSpec cube move =
     let (Cube corners edges) = cube
