@@ -5,15 +5,16 @@ import qualified Scrambler (scramble)
 import Model
 import Display
 import Move
+import MoveSpec
 
 main :: IO ()
 main = do
   args <- getArgs
   case args of
-    ("scramble":numberOfMoves:_) -> Scrambler.scramble ( read numberOfMoves :: Int )
+    ("scramble":numberOfMoves:_) -> Scrambler.scramble (read numberOfMoves :: Int)
     ("scramble":_) -> Scrambler.scramble 25
     ("show":x:_) -> showCubeFlags x 
-    ("show":_) -> print (applyMoveSpec solvedCube rMove)                                                           
+    ("show":_) -> print (applyMoveSpec solvedCube bMove)                                                           
     _ -> putStrLn "Cound not find command"
 
 

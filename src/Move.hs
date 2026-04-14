@@ -1,16 +1,9 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Move where
-import Model (CornerPosition(..), EdgePosition(..), Corners(..), CornerCubie (..), Edges(..), EdgeCubie (..), Cube(..), CornerOrientaion (..), EdgeOrientation(..))
-
+import Model
+import MoveSpec
 data Move = U | D | F | B | L | R
     deriving (Show, Eq)
-
-data MoveSpec = MoveSpec
-    { cornerCycle  :: [CornerPosition]
-    , cornerDeltas :: [[Int]]
-    , edgeCycle    :: [EdgePosition]
-    , edgeDeltas   :: [Int]
-    }
 
 applyMoveSpec :: Cube -> MoveSpec -> Cube
 applyMoveSpec cube move =
@@ -18,14 +11,6 @@ applyMoveSpec cube move =
         newCorners = applyCornerCycle corners (cornerCycle move) (cornerDeltas move)
         newEdges = applyEdgeCycle edges (edgeCycle move) (edgeDeltas move)
     in Cube newCorners newEdges
-
-rMove :: MoveSpec
-rMove = MoveSpec
-    { cornerCycle  = [DRF, URF, URB, DRB]
-    , cornerDeltas = [[2,1,0], [2,1,0], [2,1,0], [2,1,0]]
-    , edgeCycle    = [RF, UR, RB, DR]
-    , edgeDeltas   = [1, 1, 1, 1]
-    }
 
 getCorner :: Corners -> CornerPosition -> CornerCubie
 getCorner corners URF = urf corners
@@ -49,7 +34,7 @@ setCorner corners DLB cubie = corners {dlb = cubie}
 
 twistCorner :: CornerCubie -> [Int] -> CornerCubie
 twistCorner (CornerCubie pos (CornerOri a b c)) delta =
-    let ori          = [a, b, c]
+    let ori = [a, b, c]
         [a', b', c'] = map (ori !!) delta
     in CornerCubie pos (CornerOri a' b' c')
 
