@@ -2,8 +2,11 @@
 module Move where
 import Model
 import MoveSpec
-data Move = U | D | F | B | L | R
+data Move = U | D | F | B | L | R | Up | Dp | Fp | Bp | Lp | Rp 
     deriving (Show, Eq)
+
+allMoves :: [Move]
+allMoves = [U, D, L, R, F, B, Up, Dp, Lp, Rp, Fp, Bp]
 
 moveToMoveSpec :: Move -> MoveSpec
 moveToMoveSpec R = rMove
@@ -12,6 +15,18 @@ moveToMoveSpec U = uMove
 moveToMoveSpec D = dMove
 moveToMoveSpec F = fMove
 moveToMoveSpec B = bMove
+moveToMoveSpec Rp = prime rMove
+moveToMoveSpec Lp = prime lMove
+moveToMoveSpec Up = prime uMove
+moveToMoveSpec Dp = prime dMove
+moveToMoveSpec Fp = prime fMove
+moveToMoveSpec Bp = prime bMove
+
+prime :: MoveSpec -> MoveSpec 
+prime move = move { 
+    cornerCycle = reverse (cornerCycle move), 
+    edgeCycle   = reverse (edgeCycle move) 
+}  
 
 applyMoveList :: Cube -> [Move] -> Cube
 applyMoveList cube moves = foldl (\acc m -> applyMoveSpec acc (moveToMoveSpec m)) cube moves 

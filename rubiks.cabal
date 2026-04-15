@@ -18,7 +18,8 @@ common warnings
 
 library
     import:           warnings
-    exposed-modules:  Scrambler, Move, Model, Display, MoveSpec, Cube
+    exposed-modules:  Scrambler, Move, Model, Display, MoveSpec, Cube,
+                      Solve.Cross, Solve.F2L, Solve.OLL, Solve.PLL, Solve.Solver
     -- other-modules:
     -- other-extensions:
     build-depends:    base ^>=4.18.3.0, random, QuickCheck

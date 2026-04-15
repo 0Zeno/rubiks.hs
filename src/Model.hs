@@ -21,15 +21,15 @@ data Corners = Corners
 
 data CornerCubie =
     CornerCubie CornerPosition CornerOrientaion
-    deriving (Show)
+    deriving (Show, Eq)
 
 data CornerPosition =
     URF | ULF | URB | ULB | DRF | DLF | DRB | DLB
-    deriving (Show)
+    deriving (Show, Eq)
 
 data CornerOrientaion =
     CornerOri Int Int Int
-    deriving (Show)                                                               
+    deriving (Show, Eq)                                                               
 
 data Edges = Edges                                                            
     { uf :: EdgeCubie
@@ -49,12 +49,12 @@ data Edges = Edges
  
 data EdgeCubie =
     EdgeCubie EdgePosition EdgeOrientation
-    deriving (Show)
+    deriving (Show, Eq)
 
 data EdgePosition = 
     UF | UR | UL | UB | DF | DR | DL | DB | RF | LF | RB | LB
-    deriving (Show)                                                               
+    deriving (Show, Eq)                                                               
 
 data EdgeOrientation = 
     ENeutral | EFlipped
-    deriving (Show)                                                               
+    deriving (Show, Eq)                                                               
