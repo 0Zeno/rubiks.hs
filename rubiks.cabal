@@ -1,6 +1,6 @@
 cabal-version:      3.14
 name:               rubiks
-version:            0.1.0.0
+version:            0.1.0.1
 -- synopsis:
 -- description:
 license:            BSD-3-Clause
@@ -18,7 +18,7 @@ common warnings
 
 library
     import:           warnings
-    exposed-modules:  Scrambler, Move, Model, Display, MoveSpec, Cube,
+    exposed-modules:  Scrambler, Move, Model, Display, MoveSpec, Cube, Helper,
                       Solve.Cross, Solve.F2L, Solve.OLL, Solve.PLL, Solve.Solver
     -- other-modules:
     -- other-extensions:

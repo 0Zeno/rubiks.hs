@@ -1,12 +1,13 @@
 module Main where
-
 import System.Environment (getArgs)
 import Scrambler
 import Display
 import Move
 import Cube
 import Solve.Cross 
+import Solve.F2L
 import Solve.Solver
+import Model
 
 main :: IO ()
 main = do
@@ -18,6 +19,8 @@ main = do
     ("scramble":_) -> runScramble 25
     ("show":x:_) -> showCubeFlags x
     ("show":_) -> print solvedCube
+    ("solve":_) -> solve
+    ("manual":_) -> manualSolve
     _ -> putStrLn "Cound not find command"
 
 
@@ -48,7 +51,6 @@ showCubeFlags "-R"  = print (applyMoveList solvedCube [R])
 showCubeFlags "-Rp" = print (applyMoveList solvedCube [Rp])
 showCubeFlags "-L"  = print (applyMoveList solvedCube [L])
 showCubeFlags "-Lp" = print (applyMoveList solvedCube [Lp])
-showCubeFlags "--solve" = solve
 showCubeFlags x     = putStrLn ("Could not find flag " ++ x)
 
 
@@ -63,3 +65,31 @@ solve = do
     Just (crossCube, crossSolution) -> do
       print crossSolution
       print crossCube
+      case search crossCube 8 f2LSolved of
+        Nothing -> print "F2L: no solution found"
+        Just (f2lCube, f2lSolution) -> do
+          print f2lSolution
+          print f2lCube
+
+
+manualSolve :: IO ()
+manualSolve = do
+  putStrLn "Hello and welcome to the manual solver"          
+  scrambleMoves <- scramble 25
+  print scrambleMoves
+  let cube = applyMoveList solvedCube scrambleMoves
+  loop cube
+
+loop :: Cube -> IO ()
+loop cube = do
+  print cube
+  if cube == solvedCube 
+    then print "Solved!!"
+  else do
+    line <- getLine 
+    let result = reads line :: [(Move, String)]
+    case result of
+      [(move, _)] -> loop (applyMoveList cube [move])
+      _ -> do putStrLn "Invalid move, Try agains"
+              loop cube
+

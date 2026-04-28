@@ -3,6 +3,7 @@ import Model
 import Move
 import Control.Monad (msum)
 import Data.List (find)
+import Helper
 
 
 searchDepth :: Cube -> Int -> (Cube -> Bool) -> Maybe (Cube, [Move])
@@ -25,17 +26,3 @@ validNextMoves (secondLast, lastMove) =
     valid m = case lastMove of
         Nothing -> True
         Just l  -> m /= inverse l && not (secondLast == lastMove && Just m == lastMove)
-
-inverse :: Move -> Move
-inverse U = Up
-inverse D = Dp
-inverse F = Fp
-inverse B = Bp
-inverse L = Lp
-inverse R = Rp
-inverse Up = U
-inverse Dp = D
-inverse Fp = F
-inverse Bp = B
-inverse Lp = L
-inverse Rp = R

@@ -2,11 +2,11 @@
 module Move where
 import Model
 import MoveSpec
-data Move = U | D | F | B | L | R | Up | Dp | Fp | Bp | Lp | Rp 
-    deriving (Show, Eq)
+data Move = U | D | F | B | L | R | Up | Dp | Fp | Bp | Lp | Rp | R2 | L2 | U2 | D2 | F2 | B2 
+    deriving (Show, Eq, Read)
 
 allMoves :: [Move]
-allMoves = [U, D, L, R, F, B, Up, Dp, Lp, Rp, Fp, Bp]
+allMoves = [U, D, L, R, F, B, Up, Dp, Lp, Rp, Fp, Bp, R2, L2, U2, D2, F2, B2]
 
 moveToMoveSpec :: Move -> MoveSpec
 moveToMoveSpec R = rMove
@@ -21,15 +21,29 @@ moveToMoveSpec Up = prime uMove
 moveToMoveSpec Dp = prime dMove
 moveToMoveSpec Fp = prime fMove
 moveToMoveSpec Bp = prime bMove
+moveToMoveSpec R2 = double rMove
+moveToMoveSpec L2 = double lMove
+moveToMoveSpec U2 = double uMove
+moveToMoveSpec D2 = double dMove
+moveToMoveSpec F2 = double fMove
+moveToMoveSpec B2 = double bMove
+    
+prime :: MoveSpec -> MoveSpec
+prime move = move {
+    cornerCycle = reverse (cornerCycle move),
+    edgeCycle   = reverse (edgeCycle move)
+}
 
-prime :: MoveSpec -> MoveSpec 
-prime move = move { 
-    cornerCycle = reverse (cornerCycle move), 
-    edgeCycle   = reverse (edgeCycle move) 
-}  
+double :: MoveSpec -> MoveSpec
+double move = move {
+    cornerCycle = cornerCycle move ++ cornerCycle move,
+    cornerDeltas = cornerDeltas move ++ cornerDeltas move,
+    edgeCycle = edgeCycle move ++ edgeCycle move,
+    edgeDeltas = edgeDeltas move ++ edgeDeltas move
+}
 
 applyMoveList :: Cube -> [Move] -> Cube
-applyMoveList cube moves = foldl (\acc m -> applyMoveSpec acc (moveToMoveSpec m)) cube moves 
+applyMoveList cube moves = foldl (\acc m -> applyMoveSpec acc (moveToMoveSpec m)) cube moves
 
 applyMoveSpec :: Cube -> MoveSpec -> Cube
 applyMoveSpec cube move =
@@ -112,7 +126,7 @@ edgeIntToOri :: Int -> EdgeOrientation
 edgeIntToOri num =
     let oriNum = mod num 2
     in case oriNum of
-        0 -> ENeutral 
+        0 -> ENeutral
         1 -> EFlipped
 
 applyEdgeCycle:: Edges -> [EdgePosition] -> [Int] -> Edges

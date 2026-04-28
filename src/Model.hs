@@ -2,6 +2,7 @@ module Model where
 
 data Cube = 
     Cube Corners Edges
+    deriving (Eq)
 
 data Color =
     Red | Yellow | Green | Blue | White | Orange
@@ -17,7 +18,7 @@ data Corners = Corners
       , drb :: CornerCubie                                                      
       , dlb :: CornerCubie
       }
-      deriving (Show)          
+      deriving (Show, Eq)          
 
 data CornerCubie =
     CornerCubie CornerPosition CornerOrientaion
@@ -45,7 +46,7 @@ data Edges = Edges
     , rb :: EdgeCubie
     , lb :: EdgeCubie                                                         
     }
-    deriving (Show)                                                               
+    deriving (Show, Eq)                                                               
  
 data EdgeCubie =
     EdgeCubie EdgePosition EdgeOrientation

@@ -1,10 +1,8 @@
-module Scrambler (scramble, generateMoves, opposites) where
+module Scrambler (scramble, generateMoves) where
 import Move (Move(..))
 import System.Random
-{-
-code makes sure there are no self cancelling rotations .. eg .. "R" cannot be followed by "R'"
+import Helper (inverse)
 
--}
 
 scramble :: Int -> IO [Move]
 scramble n = generateMoves (Nothing, Nothing) n
@@ -24,19 +22,11 @@ generateMoves (prev1, prev2) n = do
 
 getRandomMove :: IO Move
 getRandomMove = do
-    randomNum <- randomRIO (0, 5) :: IO Int
+    randomNum <- randomRIO (0, 17) :: IO Int
     return (numberToMove randomNum)
 
-opposite :: Move -> Move
-opposite U = D
-opposite D = U
-opposite L = R
-opposite R = L
-opposite B = F
-opposite F = B
-
 opposites :: Maybe Move -> Maybe Move -> Bool
-opposites (Just m1) ( Just m2 ) = m1 == opposite m2
+opposites (Just m1) ( Just m2 ) = m1 == inverse m2
 opposites _ _ = False
 
 numberToMove :: Int -> Move
@@ -52,4 +42,10 @@ numberToMove 8 = Fp
 numberToMove 9 = Bp
 numberToMove 10 = Lp
 numberToMove 11 = Rp
+numberToMove 12 = U2
+numberToMove 13 = D2
+numberToMove 14 = F2
+numberToMove 15 = B2
+numberToMove 16 = L2
+numberToMove 17 = R2
 numberToMove _ = error "numberToMove does not allow this"

@@ -56,3 +56,4 @@ bMove = MoveSpec
     , edgeCycle    = reverse [UB, RB, DB, LB]
     , edgeDeltas   = [0, 0, 0, 0]
     }
+
