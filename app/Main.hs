@@ -13,7 +13,9 @@ main = do
   case args of
     ("scramble":numberOfMoves:_) -> do
       let moves = read numberOfMoves :: Int
-      runScramble moves
+      if moves < 0 
+      then putStrLn "Negative amount of moves is not possible" 
+      else runScramble moves
     ("scramble":_) -> runScramble 25
     ("show":_) -> print solvedCube
     ("solve":_) -> solve
@@ -29,7 +31,7 @@ runScramble num = do
 
 solve :: IO ()
 solve = do
-  scrambleMoves <- scramble 10
+  scrambleMoves <- scramble 25
   putStrLn "Scramble:"
   print scrambleMoves
   let cube = applyMoveList solvedCube scrambleMoves
