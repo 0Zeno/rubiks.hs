@@ -7,10 +7,10 @@ import Move
 
 f2LSolved :: Cube -> Bool
 f2LSolved (Cube corners edges) = whiteCrossSolved (Cube corners edges) &&
-    (rf edges == EdgeCubie RF ENeutral) &&
-    (lf edges == EdgeCubie LF ENeutral) &&
-    (lb edges == EdgeCubie LB ENeutral) &&
-    (rb edges == EdgeCubie RB ENeutral) &&
+    (rf edges == EdgeCubie RF Neutral) &&
+    (lf edges == EdgeCubie LF Neutral) &&
+    (lb edges == EdgeCubie LB Neutral) &&
+    (rb edges == EdgeCubie RB Neutral) &&
     (urf corners == CornerCubie URF (CornerOri 0 1 2)) &&
     (ulf corners == CornerCubie ULF (CornerOri 0 1 2)) &&
     (urb corners == CornerCubie URB (CornerOri 0 1 2)) &&

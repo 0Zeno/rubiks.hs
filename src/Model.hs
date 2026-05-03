@@ -57,5 +57,5 @@ data EdgePosition =
     deriving (Show, Eq)                                                               
 
 data EdgeOrientation = 
-    ENeutral | EFlipped
+    Neutral | Flipped
     deriving (Show, Eq)                                                               

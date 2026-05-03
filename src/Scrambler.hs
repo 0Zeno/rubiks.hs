@@ -22,7 +22,7 @@ generateMoves (prev1, prev2) n = do
 
 getRandomMove :: IO Move
 getRandomMove = do
-    randomNum <- randomRIO (0, 11) :: IO Int
+    randomNum <- randomRIO (0, 17) :: IO Int
     return (numberToMove randomNum)
 
 opposites :: Maybe Move -> Maybe Move -> Bool

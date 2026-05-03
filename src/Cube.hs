@@ -40,18 +40,18 @@ solvedCorners = Corners
 
 solvedEdges :: Edges
 solvedEdges = Edges
-    { uf = EdgeCubie UF ENeutral
-    , ur = EdgeCubie UR ENeutral
-    , ul = EdgeCubie UL ENeutral
-    , ub = EdgeCubie UB ENeutral
-    , df = EdgeCubie DF ENeutral
-    , dr = EdgeCubie DR ENeutral
-    , dl = EdgeCubie DL ENeutral
-    , db = EdgeCubie DB ENeutral
-    , rf = EdgeCubie RF ENeutral
-    , lf = EdgeCubie LF ENeutral
-    , rb = EdgeCubie RB ENeutral
-    , lb = EdgeCubie LB ENeutral
+    { uf = EdgeCubie UF Neutral
+    , ur = EdgeCubie UR Neutral
+    , ul = EdgeCubie UL Neutral
+    , ub = EdgeCubie UB Neutral
+    , df = EdgeCubie DF Neutral
+    , dr = EdgeCubie DR Neutral
+    , dl = EdgeCubie DL Neutral
+    , db = EdgeCubie DB Neutral
+    , rf = EdgeCubie RF Neutral
+    , lf = EdgeCubie LF Neutral
+    , rb = EdgeCubie RB Neutral
+    , lb = EdgeCubie LB Neutral
     }
 
 solvedCube :: Cube

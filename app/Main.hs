@@ -27,7 +27,6 @@ runScramble num = do
   print moves
   print (applyMoveList solvedCube moves)
 
-
 solve :: IO ()
 solve = do
   scrambleMoves <- scramble 10
@@ -39,7 +38,6 @@ solve = do
   let cube2 = solveWhiteSide cube
   putStrLn "After solving white corners:"
   print cube2
-  putStrLn $ if whiteCornersSolved cube2 then "White corners solved!" else "White corners NOT solved."
 
 manualSolve :: IO ()
 manualSolve = do

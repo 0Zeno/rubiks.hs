@@ -4,10 +4,10 @@ import Move
 
 whiteCrossSolved :: Cube -> Bool
 whiteCrossSolved (Cube _ edges) =
-    (uf edges == EdgeCubie UF ENeutral) &&
-    (ul edges == EdgeCubie UL ENeutral) &&
-    (ur edges == EdgeCubie UR ENeutral) &&
-    (ub edges == EdgeCubie UB ENeutral)
+    (uf edges == EdgeCubie UF Neutral) &&
+    (ul edges == EdgeCubie UL Neutral) &&
+    (ur edges == EdgeCubie UR Neutral) &&
+    (ub edges == EdgeCubie UB Neutral)
 
 allEdgeSlots :: [EdgePosition]
 allEdgeSlots = [UF, UR, UL, UB, DF, DR, DL, DB, RF, LF, RB, LB]

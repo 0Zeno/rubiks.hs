@@ -57,8 +57,8 @@ getEdgeSticker (EdgeCubie pos ori) face =
     let (c0, c1) = edgeToColor pos
         colors = [c0, c1]
         offset = case ori of
-            ENeutral -> 0
-            EFlipped -> 1
+            Neutral -> 0
+            Flipped -> 1
     in colors !! mod (face + offset) 2
 
 upFace :: Cube -> [Color]

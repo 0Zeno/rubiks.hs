@@ -21,12 +21,6 @@ moveToMoveSpec Up = prime uMove
 moveToMoveSpec Dp = prime dMove
 moveToMoveSpec Fp = prime fMove
 moveToMoveSpec Bp = prime bMove
-moveToMoveSpec R2 = double rMove
-moveToMoveSpec L2 = double lMove
-moveToMoveSpec U2 = double uMove
-moveToMoveSpec D2 = double dMove
-moveToMoveSpec F2 = double fMove
-moveToMoveSpec B2 = double bMove
     
 prime :: MoveSpec -> MoveSpec
 prime move = move {
@@ -34,16 +28,17 @@ prime move = move {
     edgeCycle   = reverse (edgeCycle move)
 }
 
-double :: MoveSpec -> MoveSpec
-double move = move {
-    cornerCycle = cornerCycle move ++ cornerCycle move,
-    cornerDeltas = cornerDeltas move ++ cornerDeltas move,
-    edgeCycle = edgeCycle move ++ edgeCycle move,
-    edgeDeltas = edgeDeltas move ++ edgeDeltas move
-}
-
 applyMoveList :: Cube -> [Move] -> Cube
-applyMoveList cube moves = foldl (\acc m -> applyMoveSpec acc (moveToMoveSpec m)) cube moves
+applyMoveList cube moves = foldl applyMove cube moves
+
+applyMove :: Cube -> Move -> Cube
+applyMove cube R2 = applyMoveSpec (applyMoveSpec cube rMove) rMove
+applyMove cube L2 = applyMoveSpec (applyMoveSpec cube lMove) lMove
+applyMove cube U2 = applyMoveSpec (applyMoveSpec cube uMove) uMove
+applyMove cube D2 = applyMoveSpec (applyMoveSpec cube dMove) dMove
+applyMove cube F2 = applyMoveSpec (applyMoveSpec cube fMove) fMove
+applyMove cube B2 = applyMoveSpec (applyMoveSpec cube bMove) bMove
+applyMove cube m  = applyMoveSpec cube (moveToMoveSpec m)
 
 applyMoveSpec :: Cube -> MoveSpec -> Cube
 applyMoveSpec cube move =
@@ -119,15 +114,15 @@ twistEdge (EdgeCubie pos ori) n =
 edgeOriToInt :: EdgeOrientation -> Int
 edgeOriToInt ori =
     case ori of
-        ENeutral -> 0
-        EFlipped -> 1
+        Neutral -> 0
+        Flipped -> 1
 
 edgeIntToOri :: Int -> EdgeOrientation
 edgeIntToOri num =
     let oriNum = mod num 2
     in case oriNum of
-        0 -> ENeutral
-        1 -> EFlipped
+        0 -> Neutral
+        1 -> Flipped
 
 applyEdgeCycle:: Edges -> [EdgePosition] -> [Int] -> Edges
 applyEdgeCycle edges positions deltas =
