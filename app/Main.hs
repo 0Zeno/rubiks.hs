@@ -57,19 +57,17 @@ showCubeFlags x     = putStrLn ("Could not find flag " ++ x)
 solve :: IO ()
 solve = do
   scrambleMoves <- scramble 10
+  putStrLn "Scramble:"
   print scrambleMoves
   let cube = applyMoveList solvedCube scrambleMoves
+  putStrLn "Scrambled cube:"
   print cube
-  case search cube 8 whiteCrossSolved of
-    Nothing -> print "Cross: no solution found"
-    Just (crossCube, crossSolution) -> do
-      print crossSolution
-      print crossCube
-      case search crossCube 8 f2LSolved of
-        Nothing -> print "F2L: no solution found"
-        Just (f2lCube, f2lSolution) -> do
-          print f2lSolution
-          print f2lCube
+  let cube2 = solveWhiteSide cube
+  putStrLn "After solving white corners:"
+  print cube2
+  putStrLn $ if whiteCornersSolved cube2 then "White corners solved!" else "White corners NOT solved."
+  
+
 
 
 manualSolve :: IO ()

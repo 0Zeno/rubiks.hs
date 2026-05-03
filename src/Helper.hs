@@ -1,5 +1,6 @@
-module Helper (inverse) where
+module Helper where
 import Move
+import Model
 
 inverse :: Move -> Move
 inverse U = D
@@ -20,3 +21,6 @@ inverse L2 = L2
 inverse R2 = R2
 inverse B2 = B2
 inverse F2 = F2
+
+cubiePos :: CornerCubie -> CornerPosition
+cubiePos (CornerCubie pos _) = pos
