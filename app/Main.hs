@@ -4,9 +4,7 @@ import Scrambler
 import Display
 import Move
 import Cube
-import Solve.Cross 
 import Solve.F2L
-import Solve.Solver
 import Model
 
 main :: IO ()
