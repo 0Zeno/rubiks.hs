@@ -41,16 +41,16 @@ replicateMoves n list = concat (replicate n list)
 insertFromD :: CornerCubie -> CornerPosition -> [Move]
 insertFromD (CornerCubie _ (CornerOri _ _ 0)) DRF = [F, D, Fp]
 insertFromD (CornerCubie _ (CornerOri _ 0 _)) DRF = [Rp, Dp, R]
-insertFromD (CornerCubie _ (CornerOri 0 _ _)) DRF = [Rp, D, D, R, D, Rp, Dp, R]
+insertFromD (CornerCubie _ (CornerOri 0 _ _)) DRF = [Rp, D2, R, D, Rp, Dp, R]
 insertFromD (CornerCubie _ (CornerOri _ _ 0)) DLF = [Fp, Dp, F]
 insertFromD (CornerCubie _ (CornerOri _ 0 _)) DLF = [L, D, Lp]
-insertFromD (CornerCubie _ (CornerOri 0 _ _)) DLF = [L, D, D, Lp, Dp, L, D, Lp]
+insertFromD (CornerCubie _ (CornerOri 0 _ _)) DLF = [L, D2, Lp, Dp, L, D, Lp]
 insertFromD (CornerCubie _ (CornerOri _ _ 0)) DRB = [Bp, Dp, B]
 insertFromD (CornerCubie _ (CornerOri _ 0 _)) DRB = [R, D, Rp]
-insertFromD (CornerCubie _ (CornerOri 0 _ _)) DRB = [Bp, D, D, B, D, Bp, Dp, B]
+insertFromD (CornerCubie _ (CornerOri 0 _ _)) DRB = [Bp, D2, B, D, Bp, Dp, B]
 insertFromD (CornerCubie _ (CornerOri _ _ 0)) DLB = [B, D, Bp]
 insertFromD (CornerCubie _ (CornerOri _ 0 _)) DLB = [Lp, Dp, L]
-insertFromD (CornerCubie _ (CornerOri 0 _ _)) DLB = [B, D, D, Bp, Dp, B, D, Bp]
+insertFromD (CornerCubie _ (CornerOri 0 _ _)) DLB = [B, D2, Bp, Dp, B, D, Bp]
 
 solveURF :: Cube -> Cube
 solveURF cube@(Cube corners _) =
@@ -61,10 +61,10 @@ solveURF cube@(Cube corners _) =
            else solveURF (applyMoveList cube [Rp, Dp, R, D])
     DRF -> applyMoveList cube (insertFromD (getCorner corners pos) DRF)   
     DLF -> solveURF (applyMoveList cube [D])
-    DLB -> solveURF (applyMoveList cube [D, D])
+    DLB -> solveURF (applyMoveList cube [D2])
     DRB -> solveURF (applyMoveList cube [Dp])    
     ULF -> solveURF (applyMoveList cube [L, D, Lp])  
-    ULB -> solveURF (applyMoveList cube [B, D, D, Bp])
+    ULB -> solveURF (applyMoveList cube [B, D2, Bp])
     URB -> solveURF (applyMoveList cube [Bp, Dp, B])
 
 solveULF :: Cube -> Cube
@@ -77,10 +77,10 @@ solveULF cube@(Cube corners _) =
     DLF -> applyMoveList cube (insertFromD (getCorner corners pos) DLF)   
     DRF -> solveULF (applyMoveList cube [Dp])
     DLB -> solveULF (applyMoveList cube [D])
-    DRB -> solveULF (applyMoveList cube [D, D])    
+    DRB -> solveULF (applyMoveList cube [D2])    
     URF -> solveULF (applyMoveList cube [Rp, D, R])  
     ULB -> solveULF (applyMoveList cube [B, D, Bp])
-    URB -> solveULF (applyMoveList cube [Bp, D, D, B])
+    URB -> solveULF (applyMoveList cube [Bp, D2, B])
 
 solveURB :: Cube -> Cube
 solveURB cube@(Cube corners _) =
@@ -90,11 +90,11 @@ solveURB cube@(Cube corners _) =
            then cube 
            else solveURB (applyMoveList cube [R, Dp, Rp])
     DRB -> applyMoveList cube (insertFromD (getCorner corners pos) DRB)   
-    DLF -> solveURB (applyMoveList cube [D, D])
+    DLF -> solveURB (applyMoveList cube [D2])
     DLB -> solveURB (applyMoveList cube [Dp])
     DRF -> solveURB (applyMoveList cube [D])    
-    ULF -> solveURB (applyMoveList cube [L, D, D, Lp])  
-    ULB -> solveURB (applyMoveList cube [B, D, D, Bp, D])
+    ULF -> solveURB (applyMoveList cube [L, D2, Lp])  
+    ULB -> solveURB (applyMoveList cube [B, D2, Bp, D])
     URF -> solveURB (applyMoveList cube [F, D, Fp])
 
 solveULB :: Cube -> Cube
@@ -107,7 +107,7 @@ solveULB cube@(Cube corners _) =
     DRB -> solveULB (applyMoveList cube [D])
     DLF -> solveULB (applyMoveList cube [Dp])
     DLB -> applyMoveList cube (insertFromD (getCorner corners pos) DLB)
-    DRF -> solveULB (applyMoveList cube [D, D])    
-    ULF -> solveULB (applyMoveList cube [L, D, D, Lp, D])  
+    DRF -> solveULB (applyMoveList cube [D2])    
+    ULF -> solveULB (applyMoveList cube [L, D2, Lp, D])  
     URB -> solveULB (applyMoveList cube [R, D, Rp])
-    URF -> solveULB (applyMoveList cube [Rp, D, D, R])
+    URF -> solveULB (applyMoveList cube [Rp, D2, R])
