@@ -1,9 +1,11 @@
 {-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 {-# OPTIONS_GHC -Wno-incomplete-uni-patterns #-}
 module Move where
+import Debug.Trace
 import Model
 import MoveSpec
-data Move = U | D | F | B | L | R | Up | Dp | Fp | Bp | Lp | Rp | R2 | L2 | U2 | D2 | F2 | B2 
+import Display
+data Move = U | D | F | B | L | R | Up | Dp | Fp | Bp | Lp | Rp | R2 | L2 | U2 | D2 | F2 | B2
     deriving (Show, Eq, Read)
 
 allMoves :: [Move]
@@ -22,7 +24,7 @@ moveToMoveSpec Up = prime uMove
 moveToMoveSpec Dp = prime dMove
 moveToMoveSpec Fp = prime fMove
 moveToMoveSpec Bp = prime bMove
-    
+
 prime :: MoveSpec -> MoveSpec
 prime move = move {
     cornerCycle = reverse (cornerCycle move),
@@ -30,7 +32,7 @@ prime move = move {
 }
 
 applyMoveList :: Cube -> [Move] -> Cube
-applyMoveList cube moves = foldl applyMove cube moves
+applyMoveList cube moves = traceShow moves (foldl applyMove cube moves)
 
 applyMove :: Cube -> Move -> Cube
 applyMove cube R2 = applyMoveSpec (applyMoveSpec cube rMove) rMove

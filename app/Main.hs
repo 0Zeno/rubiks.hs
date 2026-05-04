@@ -6,6 +6,7 @@ import Move
 import Cube
 import Solve.F2L
 import Model
+import Solve.Cross (solveWhiteCross)
 
 main :: IO ()
 main = do
@@ -32,19 +33,17 @@ runScramble num = do
 solve :: IO ()
 solve = do
   scrambleMoves <- scramble 25
-  putStrLn "Scramble:"
-  print scrambleMoves
   let cube = applyMoveList solvedCube scrambleMoves
-  putStrLn "Scrambled cube:"
   print cube
-  let cube2 = solveWhiteSide cube
-  putStrLn "After solving white corners:"
-  print cube2
+  let whiteCross = solveWhiteCross cube
+  print whiteCross
+  let whiteSide = solveWhiteSide whiteCross 
+  print whiteSide
 
 manualSolve :: IO ()
 manualSolve = do
   putStrLn "Hello and welcome to the manual solver"          
-  scrambleMoves <- scramble 25
+  scrambleMoves <- scramble 0
   print scrambleMoves
   let cube = applyMoveList solvedCube scrambleMoves
   loop cube
@@ -52,13 +51,10 @@ manualSolve = do
 loop :: Cube -> IO ()
 loop cube = do
   print cube
-  if cube == solvedCube 
-    then print "Solved!!"
-  else do
-    line <- getLine 
-    let result = reads line :: [(Move, String)]
-    case result of
-      [(move, _)] -> loop (applyMoveList cube [move])
-      _ -> do putStrLn "Invalid move, Try agains"
-              loop cube
+  line <- getLine 
+  let result = reads line :: [(Move, String)]
+  case result of
+    [(move, _)] -> loop (applyMoveList cube [move])
+    _ -> do putStrLn "Invalid move, Try agains"
+            loop cube
 

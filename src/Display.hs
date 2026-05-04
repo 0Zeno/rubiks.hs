@@ -6,12 +6,12 @@ import Cube
 
 instance Show Color where
     show :: Color -> String
-    show Red    = "\ESC[41m  \ESC[0m"
-    show Blue   = "\ESC[44m  \ESC[0m"
-    show Yellow = "\ESC[48;5;226m  \ESC[0m"
-    show White  = "\ESC[47m  \ESC[0m"
-    show Green  = "\ESC[42m  \ESC[0m"
-    show Orange = "\ESC[48;5;208m  \ESC[0m"
+    show Red    = "\ESC[41mR \ESC[0m"
+    show Blue   = "\ESC[44mB \ESC[0m"
+    show Yellow = "\ESC[48;5;226mY \ESC[0m"
+    show White  = "\ESC[47mW \ESC[0m"
+    show Green  = "\ESC[42mG \ESC[0m"
+    show Orange = "\ESC[48;5;208mO \ESC[0m"
 
 -- instance Show Color where
 --     show :: Color -> String

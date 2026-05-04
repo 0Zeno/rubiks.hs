@@ -1,4 +1,3 @@
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 module Solve.F2L where
 
 import Solve.Cross (whiteCrossSolved)
@@ -10,7 +9,7 @@ f2LSolved (Cube corners edges) = whiteCrossSolved (Cube corners edges) &&
     (rf edges == EdgeCubie RF Neutral) &&
     (lf edges == EdgeCubie LF Neutral) &&
     (lb edges == EdgeCubie LB Neutral) &&
-    (rb edges == EdgeCubie RB Neutral) &&
+    (rb edges == EdgeCubie RB   Neutral) &&
     (urf corners == CornerCubie URF (CornerOri 0 1 2)) &&
     (ulf corners == CornerCubie ULF (CornerOri 0 1 2)) &&
     (urb corners == CornerCubie URB (CornerOri 0 1 2)) &&
